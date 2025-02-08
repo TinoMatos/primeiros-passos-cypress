@@ -13,12 +13,15 @@ describe('template spec', () => {
     middleNameField: "[name=middleName]",
     lastNameField: "[name=lastName]",
     genericField: ".oxd-input--active",
+    genericComboBox: ".oxd-select-text--arrow",
+    seconditemcombobox: ".oxd-select-dropdown > :nth-child(27)",
+    thirdItemcombobox: ".oxd-select-dropdown > :nth-child(3)",
     datecloseButton:".--close",
     submiyButton: "[type='submit']"
 
   }
 
-  it.only('User Info Update - Success', () => {
+  it('User Info Update - Success', () => {
     cy.visit('auth/login')
     cy.get(selectorslist.usernameField).type(userData.userSuccess.username)
     cy.get(selectorslist.passwordField).type(userData.userSuccess.password)
@@ -34,9 +37,15 @@ describe('template spec', () => {
     cy.get(selectorslist.genericField).eq(5).clear().type("emergence000")
     cy.get(selectorslist.genericField).eq(6).clear().type("2025-02-08")
     cy.get(selectorslist.datecloseButton).click()
-    cy.get(selectorslist.submiyButton).eq(0).click()
+    cy.get(selectorslist.submiyButton).eq(0).click({force:true})
     cy.get('body').should('contain', 'Successfully Updated')
-    cy.get('.oxd-toast__close')
+    cy.get('.oxd-toast-close')
+
+    cy.get(selectorslist.genericComboBox).eq(0).click({force:true})
+    cy.get(selectorslist.seconditemcombobox).click()
+    cy.get(selectorslist.genericComboBox).eq(1).click()
+    cy.get(selectorslist.thirdItemcombobox).click({force:true})
+
   })
   it('login - failed', () => {
     cy.visit('auth/login')
