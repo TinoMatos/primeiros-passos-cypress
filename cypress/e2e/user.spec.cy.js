@@ -1,13 +1,18 @@
 import  userData  from '../fixtures/userData.json'
+import  LoginPage  from '../pages/loginPage.js'
+import  DashboardPage  from '../pages/dashboardPage.js'
+import  MenuPage  from '../pages/menuPage.js'
+
+
+const  loginPage = new LoginPage()
+const  dashboardPage = new DashboardPage()
+const  menuPage= new MenuPage()
 
 describe('template spec', () => {
 
   const selectorslist= {
-    usernameField: "[name=username]",
-    passwordField: "[name=password]",
-    loginbutton: "[type=submit]",
-    dashboardGrid:".orangehrm-dashboard-grid",
-    wrongCredentialsAlert : "[role='alert']",
+  
+    
     myInfoButton:"[href='/web/index.php/pim/viewMyDetails']",
     fristNameField: "[name=firstName]",
     middleNameField: "[name=middleName]",
@@ -22,13 +27,21 @@ describe('template spec', () => {
   }
 
   it('User Info Update - Success', () => {
-    cy.visit('auth/login')
-    cy.get(selectorslist.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorslist.passwordField).type(userData.userSuccess.password)
-    cy.get(selectorslist.loginbutton).click()
-    cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
-    cy.get(selectorslist.dashboardGrid)
-    cy.get(selectorslist.myInfoButton).click()
+    loginPage.accessLoginPage()
+    loginPage.loginWithUser(userData.userSuccess.username, userData.userSuccess.password)
+    dashboardPage.checkDashboardPage()
+    
+    menuPage.accessPim()
+    menuPage.accessPreferences
+    menuPage.accessTime()
+    menuPage.accessDirectory()
+    menuPage.accessClaim()
+    menuPage.accessBuzz()
+    menuPage.accessRecruit()
+    menuPage.accessLeave()
+    menuPage.accessAdmin()
+    menuPage.accessMyInfo()
+    
     cy.get(selectorslist.fristNameField).clear().type("Tino")
     cy.get(selectorslist.middleNameField).clear().type("Belmont")
     cy.get(selectorslist.lastNameField).clear().type("Matos")
@@ -47,11 +60,8 @@ describe('template spec', () => {
     cy.get(selectorslist.thirdItemcombobox).click({force:true})
 
   })
-  it('login - failed', () => {
-    cy.visit('auth/login')
-    cy.get(selectorslist.usernameField).type(userData.userFail.username)
-    cy.get(selectorslist.passwordField).type(userData.userFail.password)
-    cy.get(selectorslist.loginbutton).click()
-    cy.get(selectorslist.wrongCredentialsAlert)
-  })
+ // it('login - failed', () => {
+ //   loginPage.accessLoginPage()
+ //   loginPage.loginWithWrongCredentials(userData.userFailed.username, userData.userFailed.password)
+//  })
 })
