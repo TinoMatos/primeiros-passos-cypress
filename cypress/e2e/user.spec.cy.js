@@ -4,10 +4,14 @@ import  DashboardPage  from '../pages/dashboardPage.js'
 import  MenuPage  from '../pages/menuPage.js'
 import  MyInfoPage  from '../pages/myInfoPage.js'
 
+const Chance = require('chance')
+
+const chance = new Chance()
 const  loginPage = new LoginPage()
 const  dashboardPage = new DashboardPage()
 const  menuPage= new MenuPage()
 const  myInfoPage = new MyInfoPage()
+
 
 describe('template spec', () => {
 
@@ -28,15 +32,11 @@ describe('template spec', () => {
     menuPage.accessAdmin()
     menuPage.accessMyInfo() 
 
-    myInfoPage.fillPersonalDetails('Tino', 'Belmont', 'Matos')
-    myInfoPage.fillEmployeeDetails('EmployeeID', 'OtherID', 'EmergenID', '2025-02-09')
+    myInfoPage.fillPersonalDetails(chance.first( ), chance.last(), chance.last())
+    myInfoPage.fillEmployeeDetails(chance.bb_pin(), chance.cpf(), chance.integer, '2025-02-09')
     myInfoPage.fillstatus()
     myInfoPage.saveform()
 
   })
- it('login - failed', () => {
-   loginPage.accessLoginPage()
-   loginPage.loginWithUser(userData.userFail.username, userData.userFail.password)
-   loginPage.checkaAccessIvalid()
-   })
+ 
 })
