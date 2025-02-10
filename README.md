@@ -11,7 +11,7 @@ npm install
 >
 >It is necessary to have **node** installed
 
-##running
+##Running
 ```bash
 # YOU open the Cypress UI
 
