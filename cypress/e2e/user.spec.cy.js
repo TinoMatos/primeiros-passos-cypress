@@ -33,7 +33,7 @@ describe('template spec', () => {
     menuPage.accessMyInfo() 
 
     myInfoPage.fillPersonalDetails(chance.first( ), chance.last(), chance.last())
-    myInfoPage.fillEmployeeDetails(chance.bb_pin(), chance.cpf(), chance.integer, '2025-02-09')
+    myInfoPage.fillEmployeeDetails(chance.bb_pin(), chance.string(),chance.bb_pin(), chance.integer, '2025-02-09')
     myInfoPage.fillstatus()
     myInfoPage.saveform()
 
