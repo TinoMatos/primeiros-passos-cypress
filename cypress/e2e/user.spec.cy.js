@@ -34,8 +34,9 @@ describe('template spec', () => {
     myInfoPage.saveform()
 
   })
- // it('login - failed', () => {
- //   loginPage.accessLoginPage()
- //   loginPage.loginWithWrongCredentials(userData.userFailed.username, userData.userFailed.password)
-//  })
+ it('login - failed', () => {
+   loginPage.accessLoginPage()
+   loginPage.loginWithUser(userData.userFail.username, userData.userFail.password)
+   loginPage.checkaAccessIvalid()
+   })
 })
